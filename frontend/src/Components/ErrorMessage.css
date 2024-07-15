@@ -1,0 +1,20 @@
+.error-message {
+    background-color: #ffdddd;
+    color: #d8000c;
+    padding: 10px;
+    border: 1px solid #d8000c;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    color: #d8000c;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,88 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #42C2FF;
+    color: #EFFFFD;
+    z-index: 1000;
+    background-image: url('./header-bg.jpg');
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 1rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .navbar-logo img {
+    height: 5rem;
+    border-radius: 0.5rem;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 2%;
+    padding: 1rem 0;
+    justify-content: space-between;
+  }
+  
+  .input {
+    padding: 0.6rem;
+    font-size: 16px;
+    background-color: #42C2FF;
+    border-radius: 5px;
+    color: #EFFFFD;
+  }
+  ::placeholder {
+    color: #EFFFFD;
+  }
+  
+  .button {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #85F4FF;
+    border: none;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 1rem;
+    margin-left: 5%;
+  }
+  
+  .button:hover {
+    background-color: #B8FFF9;
+    transform: scale(1.1);
+  }
+
+  .save-location {
+    width: 200px;
+  }
+
+  .var-btns {
+    display: flex;
+    margin: 0 0.5rem;
+    gap: 0.5rem;
+    width: 15rem;
+  }
+
+  @media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: center;
+    }
+  }

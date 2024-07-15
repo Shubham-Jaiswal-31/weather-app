@@ -1,0 +1,47 @@
+.yearly-overview {
+  background: #42C2FF;
+  padding: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 2px 2px #454dd4;
+  margin-top: 20px;
+  text-align: left;
+  margin-bottom: 1%;
+  width: 94%;
+  margin-left: 1.1%;
+}
+
+.yearly-overview h2 {
+  margin-top: 10px;
+  color: #EFFFFD;
+  text-align: center;
+}
+
+.yearly-overview-table-container {
+  overflow-x: auto;
+}
+
+.yearly-overview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.yearly-overview-table th,
+.yearly-overview-table td {
+  border: 1px solid #ebe07a;
+  padding: 10px;
+  text-align: center;
+}
+
+.yearly-overview-table th {
+  background-color: #2b30d2;
+  color: #EFFFFD;
+}
+
+.yearly-overview-table tbody tr:nth-child(odd) {
+  background-color: #B8FFF9;
+}
+
+.yearly-overview-table tbody tr:nth-child(even) {
+  background-color: #85F4FF;
+}
