@@ -9,7 +9,7 @@ authRouter.post('/signup', async (req, res) => {
   try {
     const user = new User({ email, password });
     const exists = await User.findOne({email: user.email})
-    const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
+    var token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
     if (!exists) {
       await user.save();
     } else {
