@@ -9,11 +9,11 @@ authRouter.post('/signup', async (req, res) => {
   try {
     const user = new User({ email, password });
     const exists = await User.findOne({email: user.email})
+    const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
     if (!exists) {
       await user.save();
-      const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
     } else {
-      const token = jwt.sign({ id: exists._id }, 'secret', { expiresIn: '1h' });
+      token = jwt.sign({ id: exists._id }, 'secret', { expiresIn: '1h' });
     }
     res.status(201).json({ token });
   } catch (error) {
