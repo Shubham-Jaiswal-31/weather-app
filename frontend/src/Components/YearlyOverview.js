@@ -5,13 +5,11 @@ import './YearlyOverview.css';
 
 const YearlyOverview = ({ location }) => {
   const [yearlyData, setYearlyData] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (location) {
       const fetchYearlyData = async () => {
-        setLoading(true);
         try {
           const currentDate = new Date();
           const promises = [];
@@ -37,18 +35,12 @@ const YearlyOverview = ({ location }) => {
           setError(null);
         } catch (error) {
           setError('Error fetching location data.');
-        } finally {
-          setLoading(false);
-        }
+        } 
       };
 
       fetchYearlyData();
     }
   }, [location]);
-
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
 
   return (
     <div className="yearly-overview">
