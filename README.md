@@ -38,11 +38,10 @@ Make sure you have the following installed on your system:
     npm install
 
 4. **Create a .env file**
-
 Create a .env file in the root of the project directory and add your API key for the weather service. You can obtain an API key from [weatherapi](https://www.weatherapi.com/).
 
-    ```env
-    REACT_APP_WEATHER_API_KEY=your_api_key_here
+   ```env
+   REACT_APP_WEATHER_API_KEY=your_api_key_here
 
 5. **Start the development server**
     ```bash
