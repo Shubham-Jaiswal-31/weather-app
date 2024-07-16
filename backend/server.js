@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 const corsOptions = {
-  origin: 'https://weather-app-shubham31.netlify.app/', 
+  origin: 'https://weather-app-shubham31.netlify.app', 
   optionsSuccessStatus: 200,
 };
 
