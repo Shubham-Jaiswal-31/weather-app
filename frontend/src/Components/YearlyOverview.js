@@ -7,40 +7,44 @@ const YearlyOverview = ({ location }) => {
   const [yearlyData, setYearlyData] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (location) {
-      const fetchYearlyData = async () => {
-        try {
-          const currentDate = new Date();
-          const promises = [];
-          for (let i = 0; i < 12; i++) {
-            const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
-            const formattedDate = date.toISOString().split('T')[0];
-            const url = `https://api.weatherapi.com/v1/history.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${location}&dt=${formattedDate}`;
-            promises.push(axios.get(url));
-          }
+useEffect(() => {
+  if (location) {
+    const fetchYearlyData = async () => {
+      try {
+        const currentDate = new Date();
+        const promises = [];
+        for (let i = 0; i < 12; i++) {
+          const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1).toISOString().split('T')[0]; // Start of the month
+          const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - i + 1, 0).toISOString().split('T')[0]; // End of the month
+          const ipResponse = await axios.get('https://api.ipify.org?format=json');
+          const ip = ipResponse.data.ip;
+          const coor = await axios.get(`http://ip-api.com/json/${ip}`);
+          const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${coor.data.lat}&longitude=${coor.data.lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,uv_index_max,relative_humidity_2m_mean&timezone=auto`;
+          promises.push(axios.get(url));
+        }
 
-          const responses = await Promise.all(promises);
-          const data = responses.map((response) => response.data.forecast.forecastday[0].day);
+        const responses = await Promise.all(promises);
+        const data = responses.map((response) => response.data.daily);
 
-          const monthlyData = data.map((day, index) => ({
-            month: new Date(currentDate.getFullYear(), currentDate.getMonth() - index, 1).toLocaleString('default', { month: 'long' }),
-            avgTemp: day.avgtemp_c,
-            humidity: day.avghumidity,
-            uvIndex: day.uv,
-            precipitation: day.totalprecip_mm,
-          }));
+        const monthlyData = data.map((day, index) => ({
+          month: new Date(currentDate.getFullYear(), currentDate.getMonth() - index, 1).toLocaleString('default', { month: 'long' }),
+          avgTemp: Number(((day.temperature_2m_max[0] + day.temperature_2m_min[0]) / 2).toFixed(2)), // Average of max and min temp
+          humidity: day.relative_humidity_2m_mean[0],
+          uvIndex: day.uv_index_max[0],
+          precipitation: day.precipitation_sum[0],
+        }));
 
-          setYearlyData(monthlyData.reverse());
-          setError(null);
-        } catch (error) {
-          setError('Error fetching location data.');
-        } 
-      };
+        setYearlyData(monthlyData.reverse());
+        setError(null);
+      } catch (error) {
+        setError('Error fetching location data.');
+        console.log(error);
+      }
+    };
 
-      fetchYearlyData();
-    }
-  }, [location]);
+    fetchYearlyData();
+  }
+}, [location]);
 
   return (
     <div className="yearly-overview">
@@ -66,12 +70,6 @@ const YearlyOverview = ({ location }) => {
               <td>Humidity (%)</td>
               {yearlyData.map((monthData, index) => (
                 <td key={index}>{monthData.humidity}</td>
-              ))}
-            </tr>
-            <tr>
-              <td>UV Index</td>
-              {yearlyData.map((monthData, index) => (
-                <td key={index}>{monthData.uvIndex}</td>
               ))}
             </tr>
             <tr>

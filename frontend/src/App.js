@@ -40,7 +40,7 @@ const App = () => {
         const ipData = ipResponse.data;
         const locationResponse = await axios.get(`https://ipinfo.io/${ipData.ip}/geo`);
         const locationInfo = locationResponse.data;
-        setLocation(locationInfo.city);
+        setLocation(locationInfo.region);
       } catch (error) {
         console.error('Error fetching default location:', error);
       }
